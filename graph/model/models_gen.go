@@ -2,25 +2,23 @@
 
 package model
 
-type Mutation struct {
-}
-
-type NewTodo struct {
-	Text   string `json:"text"`
-	UserID string `json:"userId"`
+// Author of a complete track
+type Author struct {
+	ID    string  `json:"id"`
+	Name  string  `json:"name"`
+	Photo *string `json:"photo,omitempty"`
 }
 
 type Query struct {
 }
 
-type Todo struct {
-	ID   string `json:"id"`
-	Text string `json:"text"`
-	Done bool   `json:"done"`
-	User *User  `json:"user"`
-}
-
-type User struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+// A track is a group of Modules that can be played in a specific order
+type Track struct {
+	ID           string  `json:"id"`
+	Title        string  `json:"title"`
+	AuthorID     string  `json:"authorId"`
+	Author       *Author `json:"author"`
+	Thumbnail    *string `json:"thumbnail,omitempty"`
+	Length       *int32  `json:"length,omitempty"`
+	ModulesCount *int32  `json:"modulesCount,omitempty"`
 }

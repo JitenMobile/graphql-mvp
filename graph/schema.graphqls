@@ -2,27 +2,24 @@
 #
 # https://gqlgen.com/getting-started/
 
-type Todo {
-  id: ID!
-  text: String!
-  done: Boolean!
-  user: User!
+type Query {
+  tracksForHome: [Track!]!
 }
 
-type User {
+"A track is a group of Modules that can be played in a specific order"
+type Track {
+  id: ID!
+  title: String!
+  authorId: String!
+  author: Author!
+  thumbnail: String
+  length: Int
+  modulesCount: Int
+}
+
+"Author of a complete track"
+type Author {
   id: ID!
   name: String!
-}
-
-type Query {
-  todos: [Todo!]!
-}
-
-input NewTodo {
-  text: String!
-  userId: String!
-}
-
-type Mutation {
-  createTodo(input: NewTodo!): Todo!
+  photo: String
 }

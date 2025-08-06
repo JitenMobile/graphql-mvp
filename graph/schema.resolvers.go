@@ -6,26 +6,25 @@ package graph
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/JitenMobile/graphql-mvp/graph/model"
 )
 
-// CreateTodo is the resolver for the createTodo field.
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: CreateTodo - createTodo"))
+// TracksForHome is the resolver for the tracksForHome field.
+func (r *queryResolver) TracksForHome(ctx context.Context) ([]*model.Track, error) {
+	return r.TrackService.GetTracksForHome()
 }
 
-// Todos is the resolver for the todos field.
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: Todos - todos"))
+// Author is the resolver for the author field.
+func (r *trackResolver) Author(ctx context.Context, obj *model.Track) (*model.Author, error) {
+	return r.TrackService.GetAuthor(obj.AuthorID)
 }
-
-// Mutation returns MutationResolver implementation.
-func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
 
 // Query returns QueryResolver implementation.
 func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
-type mutationResolver struct{ *Resolver }
+// Track returns TrackResolver implementation.
+func (r *Resolver) Track() TrackResolver { return &trackResolver{r} }
+
 type queryResolver struct{ *Resolver }
+type trackResolver struct{ *Resolver }
