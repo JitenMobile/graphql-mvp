@@ -33,6 +33,19 @@ func (service *TrackService) GetTracksForHome() ([]*model.Track, error) {
 	return tracks, nil
 }
 
+func (service *TrackService) GetTrackByID(id string) (*model.Track, error) {
+	url := service.baseURL + "track/" + id
+	resp, err := service.httpClient.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	var track model.Track
+	if err := json.NewDecoder(resp.Body).Decode(&track); err != nil {
+		return nil, err
+	}
+	return &track, nil
+}
+
 func (service *TrackService) GetAuthor(authorId string) (*model.Author, error) {
 	url := service.baseURL + "author/" + authorId
 	resp, err := service.httpClient.Get(url)
@@ -45,4 +58,17 @@ func (service *TrackService) GetAuthor(authorId string) (*model.Author, error) {
 		return nil, err
 	}
 	return &author, nil
+}
+
+func (service *TrackService) GetModuleContents(trackId string) ([]*model.Module, error) {
+	url := service.baseURL + "track/" + trackId + "/modules"
+	resp, err := service.httpClient.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	var modules []*model.Module
+	if err := json.NewDecoder(resp.Body).Decode(&modules); err != nil {
+		return nil, err
+	}
+	return modules, nil
 }

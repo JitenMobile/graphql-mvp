@@ -9,16 +9,26 @@ type Author struct {
 	Photo *string `json:"photo,omitempty"`
 }
 
+type Module struct {
+	ID     string  `json:"id"`
+	Title  *string `json:"title,omitempty"`
+	Length *int32  `json:"length,omitempty"`
+}
+
 type Query struct {
 }
 
 // A track is a group of Modules that can be played in a specific order
 type Track struct {
-	ID           string  `json:"id"`
-	Title        string  `json:"title"`
-	AuthorID     string  `json:"authorId"`
-	Author       *Author `json:"author"`
-	Thumbnail    *string `json:"thumbnail,omitempty"`
-	Length       *int32  `json:"length,omitempty"`
-	ModulesCount *int32  `json:"modulesCount,omitempty"`
+	ID             string    `json:"id"`
+	Title          string    `json:"title"`
+	AuthorID       string    `json:"authorId"`
+	Author         *Author   `json:"author"`
+	Thumbnail      *string   `json:"thumbnail,omitempty"`
+	Length         *int32    `json:"length,omitempty"`
+	Description    *string   `json:"description,omitempty"`
+	NumberOfViews  *int32    `json:"numberOfViews,omitempty"`
+	Modules        []*string `json:"modules,omitempty"`
+	ModuleContents []*Module `json:"moduleContents,omitempty"`
+	ModulesCount   *int32    `json:"modulesCount,omitempty"`
 }

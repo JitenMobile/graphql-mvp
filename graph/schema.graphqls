@@ -4,6 +4,7 @@
 
 type Query {
   tracksForHome: [Track!]!
+  track(id: ID!): Track
 }
 
 "A track is a group of Modules that can be played in a specific order"
@@ -14,6 +15,10 @@ type Track {
   author: Author!
   thumbnail: String
   length: Int
+  description: String
+  numberOfViews: Int
+  modules: [String]
+  moduleContents: [Module]
   modulesCount: Int
 }
 
@@ -22,4 +27,10 @@ type Author {
   id: ID!
   name: String!
   photo: String
+}
+
+type Module {
+  id: ID!
+  title: String
+  length: Int
 }

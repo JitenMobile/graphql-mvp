@@ -15,9 +15,19 @@ func (r *queryResolver) TracksForHome(ctx context.Context) ([]*model.Track, erro
 	return r.TrackService.GetTracksForHome()
 }
 
+// Track is the resolver for the track field.
+func (r *queryResolver) Track(ctx context.Context, id string) (*model.Track, error) {
+	return r.TrackService.GetTrackByID(id)
+}
+
 // Author is the resolver for the author field.
 func (r *trackResolver) Author(ctx context.Context, obj *model.Track) (*model.Author, error) {
 	return r.TrackService.GetAuthor(obj.AuthorID)
+}
+
+// ModuleContents is the resolver for the moduleContents field.
+func (r *trackResolver) ModuleContents(ctx context.Context, obj *model.Track) ([]*model.Module, error) {
+	return r.TrackService.GetModuleContents(obj.ID)
 }
 
 // Query returns QueryResolver implementation.
