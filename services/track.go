@@ -26,6 +26,8 @@ func (service *TrackService) GetTracksForHome() ([]*model.Track, error) {
 		return nil, err
 	}
 
+	defer resp.Body.Close()
+
 	var tracks []*model.Track
 	if err := json.NewDecoder(resp.Body).Decode(&tracks); err != nil {
 		return nil, err
@@ -39,6 +41,8 @@ func (service *TrackService) GetTrackByID(id string) (*model.Track, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close()
+
 	var track model.Track
 	if err := json.NewDecoder(resp.Body).Decode(&track); err != nil {
 		return nil, err
@@ -52,6 +56,8 @@ func (service *TrackService) GetAuthor(authorId string) (*model.Author, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	defer resp.Body.Close()
 
 	var author model.Author
 	if err := json.NewDecoder(resp.Body).Decode(&author); err != nil {
@@ -71,4 +77,46 @@ func (service *TrackService) GetModuleContents(trackId string) ([]*model.Module,
 		return nil, err
 	}
 	return modules, nil
+}
+
+func (service *TrackService) IncrementTrackViews(id string) (*model.IncrementTrackViewsResponse, error) {
+	url := service.baseURL + "track/" + id + "/numberOfViews"
+	req, err := http.NewRequest(http.MethodPatch, url, nil)
+
+	if err != nil {
+		return &model.IncrementTrackViewsResponse{
+			Code:    404,
+			Success: false,
+			Message: err.Error(),
+			Track:   nil,
+		}, err
+	}
+
+	// execute the request
+	resp, err := service.httpClient.Do(req)
+	if err != nil {
+		return &model.IncrementTrackViewsResponse{
+			Code:    404,
+			Success: false,
+			Message: err.Error(),
+			Track:   nil,
+		}, err
+	}
+	defer resp.Body.Close()
+
+	var track model.Track
+	if err := json.NewDecoder(resp.Body).Decode(&track); err != nil {
+		return &model.IncrementTrackViewsResponse{
+			Code:    404,
+			Success: false,
+			Message: err.Error(),
+			Track:   nil,
+		}, err
+	}
+	return &model.IncrementTrackViewsResponse{
+		Code:    200,
+		Success: true,
+		Message: "Successfully incremented number of views for track" + id,
+		Track:   &track,
+	}, nil
 }

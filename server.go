@@ -5,6 +5,9 @@ import (
 	"net/http"
 	"os"
 
+	_ "github.com/99designs/gqlgen/codegen"
+	_ "github.com/99designs/gqlgen/codegen/config"
+
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/handler/extension"
 	"github.com/99designs/gqlgen/graphql/handler/lru"

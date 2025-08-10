@@ -10,6 +10,11 @@ import (
 	"github.com/JitenMobile/graphql-mvp/graph/model"
 )
 
+// IncrementTrackViews is the resolver for the incrementTrackViews field.
+func (r *mutationResolver) IncrementTrackViews(ctx context.Context, id string) (*model.IncrementTrackViewsResponse, error) {
+	return r.TrackService.IncrementTrackViews(id)
+}
+
 // TracksForHome is the resolver for the tracksForHome field.
 func (r *queryResolver) TracksForHome(ctx context.Context) ([]*model.Track, error) {
 	return r.TrackService.GetTracksForHome()
@@ -35,11 +40,15 @@ func (r *trackResolver) ModuleContents(ctx context.Context, obj *model.Track) ([
 	return r.TrackService.GetModuleContents(obj.ID)
 }
 
+// Mutation returns MutationResolver implementation.
+func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
+
 // Query returns QueryResolver implementation.
 func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
 // Track returns TrackResolver implementation.
 func (r *Resolver) Track() TrackResolver { return &trackResolver{r} }
 
+type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
 type trackResolver struct{ *Resolver }

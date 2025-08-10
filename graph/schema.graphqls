@@ -8,6 +8,10 @@ type Query {
   module(id: ID!): Module
 }
 
+type Mutation {
+  incrementTrackViews(id: ID!): incrementTrackViewsResponse!
+}
+
 "A track is a group of Modules that can be played in a specific order"
 type Track {
   id: ID!
@@ -39,4 +43,11 @@ type Module {
   trackId: String
   content: String
   videoUrl: String
+}
+
+type incrementTrackViewsResponse {
+  code: Int!
+  success: Boolean!
+  message: String!
+  track: Track
 }

@@ -20,6 +20,9 @@ type Module struct {
 	VideoURL *string `json:"videoUrl,omitempty"`
 }
 
+type Mutation struct {
+}
+
 type Query struct {
 }
 
@@ -36,4 +39,11 @@ type Track struct {
 	Modules        []*string `json:"modules,omitempty"`
 	ModuleContents []*Module `json:"moduleContents,omitempty"`
 	ModulesCount   *int32    `json:"modulesCount,omitempty"`
+}
+
+type IncrementTrackViewsResponse struct {
+	Code    int32  `json:"code"`
+	Success bool   `json:"success"`
+	Message string `json:"message"`
+	Track   *Track `json:"track,omitempty"`
 }
