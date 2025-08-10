@@ -20,6 +20,11 @@ func (r *queryResolver) Track(ctx context.Context, id string) (*model.Track, err
 	return r.TrackService.GetTrackByID(id)
 }
 
+// Module is the resolver for the module field.
+func (r *queryResolver) Module(ctx context.Context, id string) (*model.Module, error) {
+	return r.ModuleService.GetModuleContents(id)
+}
+
 // Author is the resolver for the author field.
 func (r *trackResolver) Author(ctx context.Context, obj *model.Track) (*model.Author, error) {
 	return r.TrackService.GetAuthor(obj.AuthorID)

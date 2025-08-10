@@ -9,11 +9,13 @@ import (
 // It serves as dependency injection for your app, add any dependencies you require here.
 
 type Resolver struct {
-	TrackService *services.TrackService
+	TrackService  *services.TrackService
+	ModuleService *services.ModuleSercve
 }
 
 func NewResolver() *Resolver {
 	return &Resolver{
-		TrackService: services.NewTrackService(),
+		TrackService:  services.NewTrackService(),
+		ModuleService: services.NewModuleService(),
 	}
 }

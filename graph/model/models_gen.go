@@ -10,9 +10,14 @@ type Author struct {
 }
 
 type Module struct {
-	ID     string  `json:"id"`
-	Title  *string `json:"title,omitempty"`
-	Length *int32  `json:"length,omitempty"`
+	ID       string  `json:"id"`
+	Title    *string `json:"title,omitempty"`
+	Length   *int32  `json:"length,omitempty"`
+	Topic    *string `json:"topic,omitempty"`
+	AuthorID *string `json:"authorId,omitempty"`
+	TrackID  *string `json:"trackId,omitempty"`
+	Content  *string `json:"content,omitempty"`
+	VideoURL *string `json:"videoUrl,omitempty"`
 }
 
 type Query struct {
